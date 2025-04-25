@@ -5,9 +5,11 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    "noEmitOnError": false,
-    "skipLibCheck": true,
-    "strict": false,
+    "noEmitOnError": false, // Allow emitting JS even with errors
+    "skipLibCheck": true, // Skip type checking of declaration files
+    "noUnusedLocals": false, // Ignore unused variables
+    "noUnusedParameters": false,
+    "noImplicitAny": false, // Allow implicit any types
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
