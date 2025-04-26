@@ -2,8 +2,13 @@ import ProductsCarousel from "@/components/ProductsCarousel";
 import Spinner from "@/components/Spinner";
 import { getTshirtsRows } from "@/utils/supabaseQueries";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 const TshirtsPage = () => {
+  //change the title
+  useEffect(() => {
+    document.title = "ANIME-GATE - T-SHIRTS";
+  }, []);
   const { data, isLoading, error } = useQuery({
     queryKey: ["t-shirts"],
     queryFn: () => getTshirtsRows(),

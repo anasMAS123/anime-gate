@@ -18,7 +18,6 @@ const ProfilePage = () => {
   const { user } = useUser();
   const userEmailAddress: string =
     user?.primaryEmailAddress?.emailAddress ?? "";
-  console.log(userEmailAddress);
   //using react-hook-form
   const {
     register,
@@ -32,6 +31,11 @@ const ProfilePage = () => {
     queryFn: () => getProfileinfo(session),
     enabled: !!session, //suuuuuuuuuuuuupeeeeeeeer important
   });
+
+  //change the title
+  useEffect(() => {
+    document.title = "ANIME-GATE - PROFILE";
+  }, []);
 
   useEffect(() => {
     if (!isLoading && data?.data[0]?.first_name) {

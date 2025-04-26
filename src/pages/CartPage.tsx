@@ -1,9 +1,11 @@
 import CartElement from "@/components/CartElement";
 import { useCart } from "@/context/Cart";
+import { useNotify } from "@/context/HistoryNotify";
 import { getProfileinfo, submitOrder } from "@/utils/supabaseQueries";
 import { useSession } from "@clerk/clerk-react";
 import { SignedInSessionResource } from "@clerk/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { toast } from "sonner";
 export type OrderObject = {
   firstName: string;
@@ -21,6 +23,11 @@ export type SessionType = SignedInSessionResource | null | undefined;
 const CartPage = () => {
   const { session } = useSession();
   const { cart, setCart } = useCart();
+  const { setNotify } = useNotify();
+  //change the title
+  useEffect(() => {
+    document.title = "ANIME-GATE - CART";
+  }, []);
   //get total cart price
   const overAllPrice = cart
     .map((element) => parseFloat(element.item.price) * element.orderQuantity)
@@ -55,6 +62,7 @@ const CartPage = () => {
     onSuccess: () => {
       toast.success("The order has been sent successfully.");
       setCart([]);
+      setNotify(true);
     },
     onError: (error) => {
       toast.error("something went wrong please try again");

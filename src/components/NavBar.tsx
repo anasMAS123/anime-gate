@@ -10,10 +10,12 @@ import PopOver from "./PopOver";
 import { Menu, ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/Cart";
 import { useState } from "react";
+import { useNotify } from "@/context/HistoryNotify";
 
 const NavBar = () => {
   const { session } = useSession();
   const { cart } = useCart();
+  const { notify, setNotify } = useNotify();
   const [menu, setMenu] = useState(false);
   return (
     <>
@@ -33,9 +35,13 @@ const NavBar = () => {
           {session && (
             <>
               <NavLink
+                onClick={() => setNotify(false)}
                 to={"/history"}
-                className="font-bold text-lg shadow-2xl text-black  p-2 rounded-md hover:bg-[var(--main-color)] hover:text-white transition-all "
+                className="relative font-bold text-lg shadow-2xl text-black  p-2 rounded-md hover:bg-[var(--main-color)] hover:text-white transition-all "
               >
+                {notify && (
+                  <div className=" -top-[5px] absolute w-[10px] h-[10px] rounded-full bg-red-500 animate-pulse"></div>
+                )}
                 <h2>Purchase history</h2>
               </NavLink>
               <NavLink
@@ -76,7 +82,7 @@ const NavBar = () => {
                       className="hover:bg-[var(--main-color)]"
                       onClick={() => setMenu(false)}
                     >
-                      History
+                      Purchase History
                     </NavLink>
                     <NavLink
                       to="/profile"

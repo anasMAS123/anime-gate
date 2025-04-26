@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import { ClerkProvider } from "@clerk/clerk-react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CartProvider } from "./context/Cart.tsx";
+import { HistoryNotifyProvider } from "./context/HistoryNotify.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -22,9 +23,11 @@ createRoot(document.getElementById("root")!).render(
           element={
             <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
               <QueryClientProvider client={queryClient}>
-                <CartProvider>
-                  <App />
-                </CartProvider>
+                <HistoryNotifyProvider>
+                  <CartProvider>
+                    <App />
+                  </CartProvider>
+                </HistoryNotifyProvider>
               </QueryClientProvider>
             </ClerkProvider>
           }

@@ -3,6 +3,7 @@ import Spinner from "@/components/Spinner";
 import { myOrders } from "@/utils/supabaseQueries";
 import { useSession } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 const HistoryPage = () => {
   const { session } = useSession();
@@ -11,7 +12,11 @@ const HistoryPage = () => {
     queryFn: () => myOrders(session),
     enabled: !!session,
   });
-  console.log(data);
+
+  //change the title
+  useEffect(() => {
+    document.title = "ANIME-GATE - PURCHASE HISTORY";
+  }, []);
 
   return (
     <div className="pad-content min-h-[calc(100vh-100px)] bg-[var(--white-color)] flex flex-col py-10 ">
